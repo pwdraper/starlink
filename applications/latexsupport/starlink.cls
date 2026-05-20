@@ -118,6 +118,10 @@
 \fi
 
 %.. hyperref
+%.. hyperref
+%   htmladdnormallink removed in livetex 2022 use \href instead.
+\AddToHook{package/hyperref/after}{\def\htmladdnormallink#1#2{\href{#2}{#1}}}
+\AddToHook{package/hyperref/after}{\def\htmlref#1#2{\href{#2}{#1}}}
 \RequirePackage[pdfusetitle=true,backref,
                 breaklinks=True,pdfdisplaydoctitle=true]{hyperref}
 
