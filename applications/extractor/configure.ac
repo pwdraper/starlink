@@ -34,10 +34,11 @@ dnl    automake to assume it's allowed to play there, too.
 dnl
 dnl    Added -disable-model-fitting so that we can build the basic
 dnl    SExtractor without requiring an ATLAS library.
+AC_CONFIG_SUBDIRS([extract])
 (
     CFLAGS="$CFLAGS -fcommon"
     cd extract
-    ./configure --prefix=$prefix --cache-file=config.cache -disable-model-fitting STARLINK=$STARLINK
+    ./configure --prefix=$prefix --cache-file=config.cache STARLINK=$STARLINK
     cd ..
     cd sextractor
     ./configure --prefix=$prefix --cache-file=config.cache -disable-model-fitting

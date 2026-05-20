@@ -7,11 +7,11 @@
 define([AC_CACHE_LOAD],)
 define([AC_CACHE_SAVE],)
 
-AC_INIT(extractor, 2.19.5, [starlink@jiscmail.ac.uk])
+AC_INIT(extractor, 2.24.1, [starlink@jiscmail.ac.uk])
 AC_CONFIG_SRCDIR(src/extractor.c)
 AC_CONFIG_AUX_DIR(autoconf)
 AM_CONFIG_HEADER(config.h)
-AM_INIT_AUTOMAKE
+AM_INIT_AUTOMAKE([subdir-objects])
 date=`date +%Y-%m-%d`
 date2=`date +"%a %b %d %Y"`
 date3=`date +"%B %Y"`
@@ -112,8 +112,8 @@ AC_FUNC_FSEEKO
 AC_DEFINE_UNQUOTED(THREADS_NMAX, 1,[Maximum number of POSIX threads])
 
 ############# Actions to complete if model-fitting is activated ##############
-if test x$enable_model_fitting != xno; then
-  AC_DEFINE(USE_MODEL, 1, [Triggers model-fitting])
+if test x$enable_model_fitting == xyes; then
+    AC_DEFINE(USE_MODEL, 1, [Triggers model-fitting])
 dnl ############ handle the INTEL MKL library (FFTW + LAPACK) ###########
 dnl   if test x$enable_mkl = xyes; then
 dnl     convlibs="${srcdir}/wcs/libwcs_c.a,${srcdir}/levmar/liblevmar.a"
@@ -141,7 +141,7 @@ dnl 	fi,
 dnl 	AC_MSG_ERROR([$ATLAS_ERROR Exiting.]))
 dnl   fi
 fi
-AM_CONDITIONAL(USE_MODEL, [test x$enable_model_fitting != xno])
+AM_CONDITIONAL(USE_MODEL, [test x$enable_model_fitting == xyes])
 
 # href to the XSL style-sheet in preflist.h
 CFLAGS="$CFLAGS -DXSL_URL=\\\"file://$datarootdir/${PACKAGE_NAME}/${PACKAGE_NAME}.xsl\\\""
@@ -194,5 +194,6 @@ CPPFLAGS="-I${STARLINK}/include"
 AC_MSG_RESULT([I will compile using:  $CC $CFLAGS])
 AC_MSG_RESULT([I will link using:     $CC $LDFLAGS $LIBS])
 
-AC_CONFIG_FILES([Makefile src/Makefile src/fits/Makefile src/wcs/Makefile])
+AC_CONFIG_FILES([Makefile src/Makefile src/fits/Makefile src/levmar/Makefile src/wcs/Makefile])
+
 AC_OUTPUT
