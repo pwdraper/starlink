@@ -182,7 +182,7 @@ fi
 
 # Starlink.
 AC_MSG_CHECKING([Starlink installation])
-STARLINK=${STARLINK=/star}
+STARLINK=${STARCONF_DEFAULT_PREFIX=/star}
 if test ! -x "${STARLINK}"; then
    echo "What directory is the root of the Starlink development system?"
    read STARLINK
